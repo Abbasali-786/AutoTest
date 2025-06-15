@@ -10,7 +10,7 @@ from pathlib import Path
 st.set_page_config(page_title="AutoTest Agent", layout="wide")
 
 # Groq API client
-client = Groq(api_key="GQ_KEY")
+client = Groq(api_key="GROQ_API_KEY")
 
 st.title("🤖 AutoTest Agent - AI Powered Test Case Generator")
 
