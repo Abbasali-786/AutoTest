@@ -1,15 +1,13 @@
-import os
 import streamlit as st
 import tempfile
 import subprocess
 from groq import Groq
-from pathlib import Path
 
 # Set page config
 st.set_page_config(page_title="AutoTest Agent", layout="wide")
 
 # Groq API client
-client = Groq(api_key = "GROQ_API_KEY")
+client = Groq(api_key="GROQ_API_KEY")
 
 st.title("🤖 AutoTest Agent - AI Powered Test Case Generator")
 
@@ -55,11 +53,12 @@ Use-case:
 
 def run_tests(code):
     with tempfile.TemporaryDirectory() as tmpdir:
-        code_path = Path(tmpdir) / "test_code.py"
-        code_path.write_text(code)
+        code_path = f"{tmpdir}/test_code.py"
+        with open(code_path, "w") as f:
+            f.write(code)
         try:
             result = subprocess.run(
-                ["pytest", str(code_path)] if "pytest" in code else ["python3", str(code_path)],
+                ["pytest", code_path] if "pytest" in code else ["python3", code_path],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True
